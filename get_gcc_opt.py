@@ -59,10 +59,30 @@ def get_gcc_optimizations():
                             optimizations.append({'flag': flag + "unlimited", 'explanation': explanation, 'id': id})
                             optimizations.append({'flag': flag + "dynamic", 'explanation': explanation, 'id': id})
                             optimizations.append({'flag': flag + "cheap", 'explanation': explanation, 'id': id})
-                            optimizations.append({'flag': flag + "very-cheap", 'explanation': explanation, 'id': id})
+                            # optimizations.append({'flag': flag + "very-cheap", 'explanation': explanation, 'id': id})
                         else:
                             continue
                     else:
+                        if flag == "-fnothrow-opt":
+                            continue
+                        if flag == "-fassociative-math":
+                            continue
+                        if flag == "-fhandle-exceptions":
+                            continue
+                        if flag == "-fdelayed-branch":
+                            continue
+                        if flag == "-frtti":
+                            continue
+                        if flag == "-fsection-anchors":
+                            continue
+                        if flag == "-fstrict-enums":
+                            continue
+                        if flag == "-fno-threadsafe-statics":
+                            continue
+                        if flag == "-fvar-tracking":
+                            continue
+                        if flag == "-fvar-tracking-uninit":
+                            continue
                         optimizations.append({'flag': flag, 'explanation': explanation, 'id': id})
                     id += 1
                 elif not line.startswith("-") and len(optimizations):

@@ -12,7 +12,7 @@ from models import model_select
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-d", "--dataset", type=str, default="cbench")
-    parser.add_argument("-m", "--model", type=str, default="O0")
+    parser.add_argument("-m", "--model", type=str, default="OS")
     args = parser.parse_args()
 
     dataset = args.dataset

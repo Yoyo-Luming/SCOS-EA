@@ -31,13 +31,7 @@ if __name__ == "__main__":
 
     shutil.copy2(f'./configs/{model_name}.yaml', path)
 
-    # print(**cfg["model_args"])
-    print(cfg)
-    print(os.getcwd())
-    # model = model_class(**cfg["model_args"])
-    model = model_class()
-    # model = model_class(cost_function_name='compile_size')
-    # TODO 解决模型初始化报错问题
+    model = model_class(**cfg["model_args"])
 
     with open(f'./data/{dataset}-program_list.json') as f:
         program_list = json.load(f)

@@ -44,7 +44,8 @@ def get_pro_list(dataset, start_id):
                 program_id = program_id + 1
             elif p == 'cbench-security-pgp':
                 program_id = program_id + 2
-
+            elif p == 'cbench-consumer-mad':
+                program_id = program_id + 1
             else:
                 program_list.append({'dataset': dataset, 'program_name': p, 'program': p, 'id': program_id,
                                      'cmd_key': '', 'dataset_uoa': ''})
@@ -70,7 +71,7 @@ if __name__ == '__main__':
     start_id = 1
     for d in datasets:
         program_list = get_pro_list(d, start_id)
-        with open(d + '-programs.json', 'w') as f:
+        with open('../data/' + d + '-program_list.json', 'w') as f:
             json.dump(program_list, f)
         for p in program_list:
             print(p['id'], p['program_name'])

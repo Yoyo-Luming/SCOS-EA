@@ -41,7 +41,7 @@ def get_gcc_optimizations():
                             continue
                         elif flag == "-fsched-stalled-insns=<number>":
                             continue
-                        elif flag == "-fsimd-cost-model=":
+                        elif flag == "-fsimd-cost-models=":
                             optimizations.append({'flag': flag + "dynamic", 'explanation': explanation, 'id': id})
                             optimizations.append({'flag': flag + "cheap", 'explanation': explanation, 'id': id})
                             optimizations.append({'flag': flag + "unlimited", 'explanation': explanation, 'id': id})
@@ -55,7 +55,7 @@ def get_gcc_optimizations():
                             # optimizations.append({'flag': flag + "basic", 'explanation': explanation, 'id': id})
                             # optimizations.append({'flag': flag + "interleave", 'explanation': explanation, 'id': id})
                             # optimizations.append({'flag': flag + "all", 'explanation': explanation, 'id': id})
-                        elif flag == "-fvect-cost-model=":
+                        elif flag == "-fvect-cost-models=":
                             optimizations.append({'flag': flag + "unlimited", 'explanation': explanation, 'id': id})
                             optimizations.append({'flag': flag + "dynamic", 'explanation': explanation, 'id': id})
                             optimizations.append({'flag': flag + "cheap", 'explanation': explanation, 'id': id})
@@ -109,5 +109,5 @@ if __name__ == '__main__':
             opt['id'] = id
             id += 1
             print(opt)
-    with open('optimizations.json', 'w') as f:
+    with open('../data/optimization_list.json', 'w') as f:
         json.dump(optimizations, f)

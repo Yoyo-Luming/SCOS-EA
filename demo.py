@@ -12,7 +12,7 @@ from models import model_select
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-d", "--dataset", type=str, default="cbench")
-    parser.add_argument("-m", "--model", type=str, default="OS")
+    parser.add_argument("-m", "--model", type=str, default="GREEDY")
     args = parser.parse_args()
 
     dataset = args.dataset
@@ -31,6 +31,11 @@ if __name__ == "__main__":
 
     shutil.copy2(f'./configs/{model_name}.yaml', path)
 
+    if cfg['use_opt']:
+        with open(cfg['optimization_file']) as f:
+            opt_list = json.load(f)
+        cfg['model_args']['opt_list'] = opt_list
+
     model = model_class(**cfg["model_args"])
 
     with open(f'./data/{dataset}-program_list.json') as f:
@@ -45,7 +50,7 @@ if __name__ == "__main__":
         result_dict['result'] = result
         result_list.append(result_dict)
         os.getcwd()
-        # break
+        break
 
     os.chdir(original_path)
     result_df = pd.DataFrame(result_list)

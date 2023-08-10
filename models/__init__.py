@@ -1,5 +1,6 @@
 from .O0 import O0
 from .OS import OS
+from .GREEDY import GREEDY
 
 
 def model_select(name):
@@ -9,4 +10,5 @@ def model_select(name):
         return O0
     elif name == 'OS':
         return OS
-
+    elif name == 'GREEDY':
+        return GREEDY

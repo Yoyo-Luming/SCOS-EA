@@ -7,89 +7,89 @@ def get_gcc_optimizations():
         result = subprocess.run(["gcc", "--help=optimizers"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
 
         if result.returncode == 0:
-            optimizations = []
-            id = 0
+            optimization_list = []
+            flag_id = 1
             # print(result.stdout.split('\n'))
             for line in result.stdout.splitlines():
 
                 line = line.strip()
                 if line.startswith("-f"):
-                    flag = line.split(" ", 1)[0]
+                    compile_flag = line.split(" ", 1)[0]
                     explanation = line.split(" ", 1)[1].strip()
-                    if "=" in flag:
-                        if flag == "-ffp-contract=":
-                            optimizations.append({'flag': flag + "off", 'explanation': explanation, 'id': id})
-                            optimizations.append({'flag': flag + "fast", 'explanation': explanation, 'id': id})
-                            optimizations.append({'flag': flag + "on", 'explanation': explanation, 'id': id})
-                        elif flag == "-fira-algorithm=":
-                            optimizations.append({'flag': flag + "CB", 'explanation': explanation, 'id': id})
-                            optimizations.append({'flag': flag + "priority", 'explanation': explanation, 'id': id})
-                        elif flag == "-fira-region=":
-                            optimizations.append({'flag': flag + "one", 'explanation': explanation, 'id': id})
-                            optimizations.append({'flag': flag + "all", 'explanation': explanation, 'id': id})
-                            optimizations.append({'flag': flag + "mixed", 'explanation': explanation, 'id': id})
-                        elif flag == "-flifetime-dse=":
-                            optimizations.append({'flag': flag + "0", 'explanation': explanation, 'id': id})
-                            optimizations.append({'flag': flag + "1", 'explanation': explanation, 'id': id})
-                            optimizations.append({'flag': flag + "2", 'explanation': explanation, 'id': id})
-                        elif flag == "-fpack-struct=<number>":
+                    if "=" in compile_flag:
+                        if compile_flag == "-ffp-contract=":
+                            optimization_list.append({'compile_flag': compile_flag + "off", 'explanation': explanation, 'flag_id': flag_id})
+                            optimization_list.append({'compile_flag': compile_flag + "fast", 'explanation': explanation, 'flag_id': flag_id})
+                            optimization_list.append({'compile_flag': compile_flag + "on", 'explanation': explanation, 'flag_id': flag_id})
+                        elif compile_flag == "-fira-algorithm=":
+                            optimization_list.append({'compile_flag': compile_flag + "CB", 'explanation': explanation, 'flag_id': flag_id})
+                            optimization_list.append({'compile_flag': compile_flag + "priority", 'explanation': explanation, 'flag_id': flag_id})
+                        elif compile_flag == "-fira-region=":
+                            optimization_list.append({'compile_flag': compile_flag + "one", 'explanation': explanation, 'flag_id': flag_id})
+                            optimization_list.append({'compile_flag': compile_flag + "all", 'explanation': explanation, 'flag_id': flag_id})
+                            optimization_list.append({'compile_flag': compile_flag + "mixed", 'explanation': explanation, 'flag_id': flag_id})
+                        elif compile_flag == "-flifetime-dse=":
+                            optimization_list.append({'compile_flag': compile_flag + "0", 'explanation': explanation, 'flag_id': flag_id})
+                            optimization_list.append({'compile_flag': compile_flag + "1", 'explanation': explanation, 'flag_id': flag_id})
+                            optimization_list.append({'compile_flag': compile_flag + "2", 'explanation': explanation, 'flag_id': flag_id})
+                        elif compile_flag == "-fpack-struct=<number>":
                             continue
-                        elif flag == "-freorder-blocks-algorithm=":
-                            optimizations.append({'flag': flag + "simple", 'explanation': explanation, 'id': id})
-                            optimizations.append({'flag': flag + "stc", 'explanation': explanation, 'id': id})
-                        elif flag == "-fsched-stalled-insns-dep=<number>":
+                        elif compile_flag == "-freorder-blocks-algorithm=":
+                            optimization_list.append({'compile_flag': compile_flag + "simple", 'explanation': explanation, 'flag_id': flag_id})
+                            optimization_list.append({'compile_flag': compile_flag + "stc", 'explanation': explanation, 'flag_id': flag_id})
+                        elif compile_flag == "-fsched-stalled-insns-dep=<number>":
                             continue
-                        elif flag == "-fsched-stalled-insns=<number>":
+                        elif compile_flag == "-fsched-stalled-insns=<number>":
                             continue
-                        elif flag == "-fsimd-cost-models=":
-                            optimizations.append({'flag': flag + "dynamic", 'explanation': explanation, 'id': id})
-                            optimizations.append({'flag': flag + "cheap", 'explanation': explanation, 'id': id})
-                            optimizations.append({'flag': flag + "unlimited", 'explanation': explanation, 'id': id})
-                        elif flag == "-fstack-reuse=":
-                            optimizations.append({'flag': flag + "none", 'explanation': explanation, 'id': id})
-                            optimizations.append({'flag': flag + "named_vars", 'explanation': explanation, 'id': id})
-                            optimizations.append({'flag': flag + "all", 'explanation': explanation, 'id': id})
-                        elif flag == "-ftree-parallelize-loops=":
+                        elif compile_flag == "-fsimd-cost-models=":
+                            optimization_list.append({'compile_flag': compile_flag + "dynamic", 'explanation': explanation, 'flag_id': flag_id})
+                            optimization_list.append({'compile_flag': compile_flag + "cheap", 'explanation': explanation, 'flag_id': flag_id})
+                            optimization_list.append({'compile_flag': compile_flag + "unlimited", 'explanation': explanation, 'flag_id': flag_id})
+                        elif compile_flag == "-fstack-reuse=":
+                            optimization_list.append({'compile_flag': compile_flag + "none", 'explanation': explanation, 'flag_id': flag_id})
+                            optimization_list.append({'compile_flag': compile_flag + "named_vars", 'explanation': explanation, 'flag_id': flag_id})
+                            optimization_list.append({'compile_flag': compile_flag + "all", 'explanation': explanation, 'flag_id': flag_id})
+                        elif compile_flag == "-ftree-parallelize-loops=":
                             continue
-                            # optimizations.append({'flag': flag + "disable", 'explanation': explanation, 'id': id})
-                            # optimizations.append({'flag': flag + "basic", 'explanation': explanation, 'id': id})
-                            # optimizations.append({'flag': flag + "interleave", 'explanation': explanation, 'id': id})
-                            # optimizations.append({'flag': flag + "all", 'explanation': explanation, 'id': id})
-                        elif flag == "-fvect-cost-models=":
-                            optimizations.append({'flag': flag + "unlimited", 'explanation': explanation, 'id': id})
-                            optimizations.append({'flag': flag + "dynamic", 'explanation': explanation, 'id': id})
-                            optimizations.append({'flag': flag + "cheap", 'explanation': explanation, 'id': id})
-                            # optimizations.append({'flag': flag + "very-cheap", 'explanation': explanation, 'id': id})
+                            # optimizations.append({'compile_flag': compile_flag + "disable", 'explanation': explanation, 'flag_id': flag_id})
+                            # optimizations.append({'compile_flag': compile_flag + "basic", 'explanation': explanation, 'flag_id': flag_id})
+                            # optimizations.append({'compile_flag': compile_flag + "interleave", 'explanation': explanation, 'flag_id': flag_id})
+                            # optimizations.append({'compile_flag': compile_flag + "all", 'explanation': explanation, 'flag_id': flag_id})
+                        elif compile_flag == "-fvect-cost-models=":
+                            optimization_list.append({'compile_flag': compile_flag + "unlimited", 'explanation': explanation, 'flag_id': flag_id})
+                            optimization_list.append({'compile_flag': compile_flag + "dynamic", 'explanation': explanation, 'flag_id': flag_id})
+                            optimization_list.append({'compile_flag': compile_flag + "cheap", 'explanation': explanation, 'flag_id': flag_id})
+                            # optimizations.append({'compile_flag': compile_flag + "very-cheap", 'explanation': explanation, 'flag_id': flag_id})
                         else:
                             continue
                     else:
-                        if flag == "-fnothrow-opt":
+                        if compile_flag == "-fnothrow-opt":
                             continue
-                        if flag == "-fassociative-math":
+                        if compile_flag == "-fassociative-math":
                             continue
-                        if flag == "-fhandle-exceptions":
+                        if compile_flag == "-fhandle-exceptions":
                             continue
-                        if flag == "-fdelayed-branch":
+                        if compile_flag == "-fdelayed-branch":
                             continue
-                        if flag == "-frtti":
+                        if compile_flag == "-frtti":
                             continue
-                        if flag == "-fsection-anchors":
+                        if compile_flag == "-fsection-anchors":
                             continue
-                        if flag == "-fstrict-enums":
+                        if compile_flag == "-fstrict-enums":
                             continue
-                        if flag == "-fno-threadsafe-statics":
+                        if compile_flag == "-fno-threadsafe-statics":
                             continue
-                        if flag == "-fvar-tracking":
+                        if compile_flag == "-fvar-tracking":
                             continue
-                        if flag == "-fvar-tracking-uninit":
+                        if compile_flag == "-fvar-tracking-uninit":
                             continue
-                        optimizations.append({'flag': flag, 'explanation': explanation, 'id': id})
-                    id += 1
-                elif not line.startswith("-") and len(optimizations):
-                    for i in optimizations:
-                        if i['id'] == id - 1:
+                        optimization_list.append({'compile_flag': compile_flag, 'explanation': explanation, 'flag_id': flag_id})
+                    flag_id += 1
+                elif not line.startswith("-") and len(optimization_list):
+                    for i in optimization_list:
+                        if i['flag_id'] == flag_id - 1:
                             i['explanation'] += line
-            return optimizations
+            return optimization_list
         else:
             print(f"Error: {result.stderr}")
             return None
@@ -102,12 +102,9 @@ def get_gcc_optimizations():
 if __name__ == '__main__':
     optimizations = get_gcc_optimizations()
     print(len(optimizations))
-    id = 0
     if optimizations:
         print("GCC Optimizations:")
         for opt in optimizations:
-            opt['id'] = id
-            id += 1
             print(opt)
     with open('../data/optimization_list.json', 'w') as f:
         json.dump(optimizations, f)

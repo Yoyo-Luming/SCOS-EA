@@ -14,6 +14,7 @@ class GREEDY:
         best_result = cost_function(self.cost_function_name, program_dict)
         best_compile_flag = ''
         compile_flag_list = []
+
         for compile_dict in self.opt_list:
             cur_compile_flag = (best_compile_flag + ' ' + compile_dict['compile_flag']).strip()
             program_dict['compile_flag'] = cur_compile_flag

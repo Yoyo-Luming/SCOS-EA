@@ -5,14 +5,13 @@ import os
 import yaml
 import shutil
 import pandas as pd
-import numpy as np
 
 from models import model_select
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-d", "--dataset", type=str, default="cbench")
-    parser.add_argument("-m", "--model", type=str, default="GREEDY")
+    parser.add_argument("-m", "--model", type=str, default="GA")
     args = parser.parse_args()
 
     dataset = args.dataset

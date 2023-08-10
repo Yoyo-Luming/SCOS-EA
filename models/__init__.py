@@ -1,6 +1,7 @@
 from .O0 import O0
 from .OS import OS
 from .GREEDY import GREEDY
+from .GA import GA
 
 
 def model_select(name):
@@ -12,3 +13,5 @@ def model_select(name):
         return OS
     elif name == 'GREEDY':
         return GREEDY
+    elif name == 'GA':
+        return GA

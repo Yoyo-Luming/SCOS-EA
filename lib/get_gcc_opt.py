@@ -83,6 +83,10 @@ def get_gcc_optimizations():
                             continue
                         if compile_flag == "-fvar-tracking-uninit":
                             continue
+                        if compile_flag == "-freorder-blocks-and-partition":
+                            continue
+                        if compile_flag == "-fassociative-math":
+                            continue
                         optimization_list.append({'compile_flag': compile_flag, 'explanation': explanation, 'flag_id': flag_id})
                     flag_id += 1
                 elif not line.startswith("-") and len(optimization_list):

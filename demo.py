@@ -41,14 +41,16 @@ if __name__ == "__main__":
         program_list = json.load(f)
 
     result_list = []
-
+    cnt = 1
     for program_dict in program_list:
+        if cnt == 1:
+            cnt += 1
+            continue
         result = model.run(program_dict)
         print(program_dict['program_name'], result)
         result_dict = program_dict
         result_dict['result'] = result
         result_list.append(result_dict)
-        os.getcwd()
         break
 
     os.chdir(original_path)

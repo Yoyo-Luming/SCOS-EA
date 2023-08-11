@@ -38,9 +38,9 @@ class GA:
         program_dict['compile_flag'] = self.get_opt(value)
         cost = cost_function(self.cost_function_name, program_dict)
         if self.small_better:
-            return - (cost/self.base_result)
+            return - cost
         else:
-            return cost/self.base_result
+            return cost
 
     def mutate(self, individual, program_dict):
         """对个体进行变异"""
@@ -67,6 +67,9 @@ class GA:
 
     def select_parents(self, population):
         """选择两个父代个体，使用轮盘赌选择"""
+        min_fitness = min(population, key=lambda x: x['fitness'])['fitness']
+        for p in population:
+            p['fitness'] = p['fitness'] - min_fitness + 1
         total_fitness = sum(individual['fitness'] for individual in population)
         selection_probs = [individual['fitness'] / total_fitness for individual in population]
         parent1 = random.choices(population, weights=selection_probs)[0]

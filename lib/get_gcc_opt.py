@@ -85,7 +85,11 @@ def get_gcc_optimizations():
                             continue
                         if compile_flag == "-freorder-blocks-and-partition":
                             continue
-                        if compile_flag == "-fassociative-math":
+                        if compile_flag == "-freciprocal-math":
+                            continue
+                        if compile_flag == "-fvar-tracking-assignments":
+                            continue
+                        if compile_flag == "-fvar-tracking-assignments-toggle":
                             continue
                         optimization_list.append({'compile_flag': compile_flag, 'explanation': explanation, 'flag_id': flag_id})
                     flag_id += 1

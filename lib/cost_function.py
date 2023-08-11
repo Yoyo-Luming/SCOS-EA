@@ -22,8 +22,10 @@ def compile_size(program, compile_flag):
                                 'data_uoa': program,
                                 'flags': compile_flag,
                                 'out': 'con'})
+
     if compile_result['return'] > 0:
         ck.err(compile_result)
+
     return compile_result['characteristics']['obj_size']
 
 

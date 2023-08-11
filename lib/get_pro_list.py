@@ -19,7 +19,7 @@ def get_pro_list(dataset, start_id):
             p = line.strip()
             # print(p)
             if p == 'cbench-automotive-susan':
-                dataset_uoa = 'dataset_uoa'
+                dataset_uoa = 'image-pgm-0001'
                 program_list.append({'dataset': dataset, 'program_name': p + '-c', 'program': p, 'id': program_id,
                                      'cmd_key': 'corners', 'dataset_uoa': dataset_uoa})
                 program_id = program_id + 1

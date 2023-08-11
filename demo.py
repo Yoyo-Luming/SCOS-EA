@@ -42,7 +42,7 @@ if __name__ == "__main__":
 
     result_list = []
 
-    for program_dict in program_list[1:]:
+    for program_dict in program_list[2:]:
         result = model.run(program_dict)
         print(program_dict['program_name'], result)
         result_dict = program_dict

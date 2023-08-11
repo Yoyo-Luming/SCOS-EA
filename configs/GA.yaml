@@ -4,8 +4,8 @@ cbench:
   model_args:
     small_better: True
     population_size: 20
-    generations: 500
-    mutation_rate: 0.05
+    generations: 120
+    mutation_rate: 0.1
     cost_function_name: 'compile_size'
 
 polybench-cpu:

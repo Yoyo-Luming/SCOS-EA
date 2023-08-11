@@ -41,11 +41,8 @@ if __name__ == "__main__":
         program_list = json.load(f)
 
     result_list = []
-    cnt = 1
-    for program_dict in program_list:
-        if cnt == 1:
-            cnt += 1
-            continue
+
+    for program_dict in program_list[1:]:
         result = model.run(program_dict)
         print(program_dict['program_name'], result)
         result_dict = program_dict

@@ -14,6 +14,7 @@ class GA:
         self.opt_list = opt_list
         self.gene_length = len(opt_list)
         self.small_better = small_better
+        self.base_result = 0
 
     def get_opt(self, individual):
         """根据01串获取编译序列"""
@@ -37,9 +38,9 @@ class GA:
         program_dict['compile_flag'] = self.get_opt(value)
         cost = cost_function(self.cost_function_name, program_dict)
         if self.small_better:
-            return - cost
+            return - (cost/self.base_result)
         else:
-            return cost
+            return cost/self.base_result
 
     def mutate(self, individual, program_dict):
         """对个体进行变异"""
@@ -73,6 +74,9 @@ class GA:
         return parent1, parent2
 
     def run(self, program_dict):
+        program_dict['compile_flag'] = '-O0'
+        self.base_result = cost_function(self.cost_function_name, program_dict)
+
         best_result = -1
         best_compile_flag = ''
         result_list = []
@@ -98,4 +102,4 @@ class GA:
             best_result = cost_function(self.cost_function_name, program_dict)
             result_list.append({'best_result': best_result, 'value': best_individual['value'], 'generations': _})
 
-        return {'best_result': best_result, 'compile_flag': best_compile_flag,'result_list': result_list}
+        return {'best_result': best_result, 'compile_flag': best_compile_flag, 'result_list': result_list}

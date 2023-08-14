@@ -1,0 +1,12 @@
+cbench:
+#  program_file: '../data/cbench-program_list.json'
+  model_args:
+    cost_function_name: 'compile_size'
+#  cost_function_name: 'run_time'
+
+polybench-cpu:
+#  program_file: '../data/polybench-cpu-program_list.json'
+  model_args:
+    cost_function_name: 'compile_size'
+#  cost_function_name: 'run_time'
+

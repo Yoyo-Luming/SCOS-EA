@@ -16,7 +16,7 @@ class GREEDY:
         compile_flag_list = []
 
         for compile_dict in self.opt_list:
-            cur_compile_flag = (best_compile_flag + ' ' + compile_dict['compile_flag']).strip()
+            cur_compile_flag = (best_compile_flag + ' ' + compile_dict['compile_flag'][1]).strip()
             program_dict['compile_flag'] = cur_compile_flag
             result = cost_function(self.cost_function_name, program_dict)
             if self.small_better:

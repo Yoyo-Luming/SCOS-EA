@@ -3,12 +3,12 @@ cbench:
   optimization_file: './data/optimization_list.json'
   model_args:
     small_better: True
-    num_total: 5
+    num_total: 100
     cost_function_name: 'compile_size'
 
 polybench-cpu:
   optimization_file: './data/optimization_list.json'
   model_args:
     small_better: True
-    num_total: 5
+    num_total: 100
     cost_function_name: 'compile_size'

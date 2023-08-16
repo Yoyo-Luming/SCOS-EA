@@ -19,7 +19,7 @@ class GA:
 
     def get_opt(self, individual):
         """根据01串获取编译序列"""
-        compile_flag = ''
+        compile_flag = '-Os'
         for i in range(len(individual)):
             conflict_list = self.opt_list[i]['conflict_list']
             conflict_flag = False
@@ -29,10 +29,11 @@ class GA:
                     conflict_flag = True
             if conflict_flag:
                 continue
-            compile_flag += ' ' + self.opt_list[i]['compile_flag'][individual[i]]
-            compile_flag = compile_flag.strip()
+            cur_flag = self.opt_list[i]['compile_flag'][individual[i]]
+            if cur_flag != '':
+                compile_flag += ' ' + cur_flag
 
-        return compile_flag.strip()
+        return compile_flag
 
     # def check_conflict(self, individual):
     #     for i in range(len(individual)):
@@ -139,6 +140,6 @@ class GA:
             best_result = cost_function(self.cost_function_name, program_dict)
             result_list.append({'best_result': best_result, 'value': best_individual['value'], 'generations': _})
             end_time = time.time()
-            print(f'generation {_}, {self.population_size} run time {end_time - start_time} s, best result {best_result}')
+            print(f'generation {_}, population_size {self.population_size}, run time {end_time - start_time} s, best result {best_result}')
 
         return {'best_result': best_result, 'compile_flag': best_compile_flag, 'result_list': result_list}

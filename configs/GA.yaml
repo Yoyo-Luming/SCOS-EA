@@ -3,9 +3,9 @@ cbench:
   optimization_file: './data/optimization_list.json'
   model_args:
     small_better: True
-    population_size: 20
+    population_size: 30
     generations: 100
-    mutation_rate: 0.05
+    mutation_rate: 0.001
     cost_function_name: 'compile_size'
 
 polybench-cpu:

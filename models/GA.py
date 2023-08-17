@@ -1,6 +1,7 @@
 from lib.cost_function import cost_function
 import random
 import time
+import numpy as np
 
 
 class GA:
@@ -92,6 +93,19 @@ class GA:
 
         return child1, child2
 
+    def crossover_pmx(self, parent1, parent2, program_dict):
+        # crossover_point = random.randint(1, self.gene_length - 1)
+        cxpoint1, cxpoint2 = np.random.randint(0, self.gene_length - 1, 2)
+        if cxpoint1 >= cxpoint2:
+            cxpoint1, cxpoint2 = cxpoint2, cxpoint1 + 1
+        child1, child2 = {}, {}
+        child1['value'] = parent1['value'][:cxpoint1] + parent2['value'][cxpoint1:cxpoint2] + parent1['value'][cxpoint2:]
+        child2['value'] = parent2['value'][:cxpoint1] + parent1['value'][cxpoint1:cxpoint2] + parent2['value'][cxpoint2:]
+        child1 = self.mutate(child1, program_dict)
+        child2 = self.mutate(child2, program_dict)
+
+        return child1, child2
+
     def select_parents(self, population):
         """选择两个父代个体，使用轮盘赌选择"""
         total_fitness = sum(individual['fitness'] for individual in population)
@@ -124,7 +138,8 @@ class GA:
             new_population = []
             while len(new_population) < self.population_size:
                 parent1, parent2 = self.select_parents(population)
-                child1, child2 = self.crossover(parent1, parent2, program_dict)
+                # child1, child2 = self.crossover(parent1, parent2, program_dict)
+                child1, child2 = self.crossover_pmx(parent1, parent2, program_dict)
 
                 new_population.extend([child1, child2])
 

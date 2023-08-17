@@ -30,6 +30,8 @@ if __name__ == "__main__":
     cfg = cfg[dataset]
 
     shutil.copy2(f'./configs/{model_name}.yaml', path)
+    shutil.copy2(f'./models/{model_name}.py', path)
+
 
     if cfg['use_opt']:
         with open(cfg['optimization_file']) as f:
@@ -43,7 +45,7 @@ if __name__ == "__main__":
 
     result_list = []
 
-    for program_dict in program_list[2:]:
+    for program_dict in program_list[1:]:
         result = model.run(program_dict)
         print(program_dict['program_name'], result)
         result_dict = program_dict

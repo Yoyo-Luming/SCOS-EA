@@ -21,6 +21,8 @@ def get_gcc_optimizations(compiler_dict):
                     continue
                 if choice[0] == '-fwhole-program':
                     continue
+                if choice[0] == '-fprefetch-loop-arrays':
+                    continue
                 optimization_list.append({'compile_flag': [choice[0], choice[1]], 'flag_id': flag_id, 'conflict_list':[]})
                 flag_id += 1
             else:

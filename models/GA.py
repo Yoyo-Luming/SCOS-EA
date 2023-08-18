@@ -82,7 +82,7 @@ class GA:
         mutated_individual = {'value': mutated_value, 'cost': self.get_cost(mutated_value, program_dict)}
         return mutated_individual
 
-    def crossover(self, parent1, parent2, program_dict):
+    def crossover_1point(self, parent1, parent2, program_dict):
         """进行交叉操作，生成两个新个体，然后变异"""
         crossover_point = random.randint(1, self.gene_length - 1)
         child1, child2 = {}, {}
@@ -93,14 +93,16 @@ class GA:
 
         return child1, child2
 
-    def crossover_pmx(self, parent1, parent2, program_dict):
+    def crossover_2point(self, parent1, parent2, program_dict):
         # crossover_point = random.randint(1, self.gene_length - 1)
         cxpoint1, cxpoint2 = np.random.randint(0, self.gene_length - 1, 2)
         if cxpoint1 >= cxpoint2:
             cxpoint1, cxpoint2 = cxpoint2, cxpoint1 + 1
         child1, child2 = {}, {}
-        child1['value'] = parent1['value'][:cxpoint1] + parent2['value'][cxpoint1:cxpoint2] + parent1['value'][cxpoint2:]
-        child2['value'] = parent2['value'][:cxpoint1] + parent1['value'][cxpoint1:cxpoint2] + parent2['value'][cxpoint2:]
+        child1['value'] = parent1['value'][:cxpoint1] + parent2['value'][cxpoint1:cxpoint2] + parent1['value'][
+                                                                                              cxpoint2:]
+        child2['value'] = parent2['value'][:cxpoint1] + parent1['value'][cxpoint1:cxpoint2] + parent2['value'][
+                                                                                              cxpoint2:]
         child1 = self.mutate(child1, program_dict)
         child2 = self.mutate(child2, program_dict)
 
@@ -138,8 +140,9 @@ class GA:
             new_population = []
             while len(new_population) < self.population_size:
                 parent1, parent2 = self.select_parents(population)
-                # child1, child2 = self.crossover(parent1, parent2, program_dict)
-                child1, child2 = self.crossover_pmx(parent1, parent2, program_dict)
+                # child1, child2 = self.crossover_1point(parent1, parent2, program_dict)
+
+                child1, child2 = self.crossover_2point(parent1, parent2, program_dict)
 
                 new_population.extend([child1, child2])
 
@@ -155,6 +158,7 @@ class GA:
             best_result = cost_function(self.cost_function_name, program_dict)
             result_list.append({'best_result': best_result, 'value': best_individual['value'], 'generations': _})
             end_time = time.time()
-            print(f'generation {_}, population_size {self.population_size}, run time {end_time - start_time} s, best result {best_result}')
+            print(
+                f'generation {_}, population_size {self.population_size}, run time {end_time - start_time} s, best result {best_result}')
 
         return {'best_result': best_result, 'compile_flag': best_compile_flag, 'result_list': result_list}

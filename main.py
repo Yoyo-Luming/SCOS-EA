@@ -44,7 +44,7 @@ if __name__ == "__main__":
 
     result_list = []
 
-    for i in range(len(program_list)):
+    for i in range(13, 15):
         program_dict = program_list[i]
         if i > 0 and program_dict['program'] == program_list[i-1]['program']:
             continue
@@ -54,6 +54,10 @@ if __name__ == "__main__":
         result_dict['result'] = result
         result_list.append(result_dict)
 
-    os.chdir(original_path)
-    result_df = pd.DataFrame(result_list)
-    result_df.to_csv(path + '/result.csv', index=False)
+        os.chdir(original_path)
+        result_df = pd.DataFrame(result_list)
+        result_df.to_csv(path + '/'+program_dict['program_name']+'-result.csv', index=False)
+
+    # os.chdir(original_path)
+    # result_df = pd.DataFrame(result_list)
+    # result_df.to_csv(path + '/result.csv', index=False)

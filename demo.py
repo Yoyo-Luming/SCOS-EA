@@ -6,8 +6,12 @@ import yaml
 import shutil
 import pandas as pd
 import time
+import multiprocessing
 
 from models import model_select
+
+# def worker(model_class, model_config, program_dict):
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -45,14 +49,16 @@ if __name__ == "__main__":
 
     result_list = []
 
-    for program_dict in program_list[2:]:
+    for i in range(15, 20):
+        program_dict = program_list[i]
+        if i > 0 and program_dict['program'] == program_list[i-1]['program']:
+            continue
         result = model.run(program_dict)
         print(program_dict['program_name'], result)
         result_dict = program_dict
         result_dict['result'] = result
         result_list.append(result_dict)
-        break
 
-    os.chdir(original_path)
-    result_df = pd.DataFrame(result_list)
-    result_df.to_csv(path + '/result.csv', index=False)
+        os.chdir(original_path)
+        result_df = pd.DataFrame(result_list)
+        result_df.to_csv(path + '/'+program_dict['program_name']+'-result.csv', index=False)

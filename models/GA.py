@@ -134,6 +134,7 @@ class GA:
             for p in population:
                 if self.small_better:
                     p['fitness'] = max_cost - p['cost'] + 1
+                    # p['fitness'] = 1 / p['cost']
                 else:
                     p['fitness'] = p['cost'] - min_cost + 1
 

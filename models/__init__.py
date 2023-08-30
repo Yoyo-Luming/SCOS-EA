@@ -2,6 +2,7 @@ from .O0 import O0
 from .OS import OS
 from .GREEDY import GREEDY
 from .GA import GA
+from .AGENTGA import AGENTGA
 
 
 def model_select(name):
@@ -15,3 +16,5 @@ def model_select(name):
         return GREEDY
     elif name == 'GA':
         return GA
+    elif name =='AGENTGA':
+        return AGENTGA

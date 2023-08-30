@@ -5,14 +5,13 @@ import os
 import yaml
 import shutil
 import pandas as pd
-import time
 
 from models import model_select
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-d", "--dataset", type=str, default="cbench")
-    parser.add_argument("-m", "--model", type=str, default="GA")
+    parser.add_argument("-m", "--model", type=str, default="AGENTGA")
     args = parser.parse_args()
 
     dataset = args.dataset
@@ -44,7 +43,7 @@ if __name__ == "__main__":
 
     result_list = []
 
-    for i in range(13, 15):
+    for i in range(2, 3):
         program_dict = program_list[i]
         if i > 0 and program_dict['program'] == program_list[i-1]['program']:
             continue
@@ -56,7 +55,7 @@ if __name__ == "__main__":
 
         os.chdir(original_path)
         result_df = pd.DataFrame(result_list)
-        result_df.to_csv(path + '/'+program_dict['program_name']+'-result.csv', index=False)
+        result_df.to_csv(path + '/'+program_dict['program_name']+'-agent-result.csv', index=False)
 
     # os.chdir(original_path)
     # result_df = pd.DataFrame(result_list)

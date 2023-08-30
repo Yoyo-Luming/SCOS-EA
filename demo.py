@@ -16,7 +16,7 @@ from models import model_select
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-d", "--dataset", type=str, default="cbench")
-    parser.add_argument("-m", "--model", type=str, default="GA")
+    parser.add_argument("-m", "--model", type=str, default="AGENTGA")
     args = parser.parse_args()
 
     dataset = args.dataset
@@ -48,8 +48,9 @@ if __name__ == "__main__":
         program_list = json.load(f)
 
     result_list = []
+    tot_df = ''
 
-    for i in range(15, 20):
+    for i in range(0, len(program_list)):
         program_dict = program_list[i]
         if i > 0 and program_dict['program'] == program_list[i-1]['program']:
             continue
@@ -61,4 +62,7 @@ if __name__ == "__main__":
 
         os.chdir(original_path)
         result_df = pd.DataFrame(result_list)
-        result_df.to_csv(path + '/'+program_dict['program_name']+'-result.csv', index=False)
+        result_df.to_csv(path + '/'+ str(program_dict['id']) +'-result.csv', index=False)
+    # os.chdir(original_path)
+    # result_df = pd.DataFrame(result_list)
+    # result_df.to_csv(path + '/result.csv', index=False)
